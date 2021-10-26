@@ -11,7 +11,7 @@ router.get('', async (req, res) => {
         if (!!popularCities) {
             return res.status(200).json(popularCities);
         } else {
-            return res.status(404).json({ error: 'No poplar-search yet' });
+            return res.sendStatus(204);
         }
     } catch (error: any) {
         console.error('got error, pop search:  ', JSON.stringify(error));
