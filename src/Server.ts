@@ -1,5 +1,8 @@
 import express = require('express');
+
 import appRouter from './routes/router';
+import errorHandler from './middleware/errorHandler';
+
 require('dotenv').config();
 
 const app: express.Application = express();
@@ -14,3 +17,5 @@ app.listen(PORT, function () {
 });
 
 app.use(appRouter);
+
+app.use(errorHandler);

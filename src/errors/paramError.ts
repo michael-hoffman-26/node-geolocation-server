@@ -1,7 +1,8 @@
-export class paramError extends Error {
+import { BaseError } from "./baseError";
+
+export class paramError extends BaseError {
     constructor(msg: string) {
-        console.error('Param Error:  ', msg)
-        super('Error Message: ' + msg);
+        super(msg, 400);
 
         // Set the prototype explicitly.
         Object.setPrototypeOf(this, paramError.prototype);

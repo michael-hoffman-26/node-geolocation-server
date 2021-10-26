@@ -11,6 +11,6 @@ const pool = new Pool({ user, host, database, password, port: +port });
 
 export const query = (text, params) => {
     return pool.query(text, params).catch(error => {
-        throw new DBError(JSON.stringify(error));
+        throw new DBError(error);
     })
 }
