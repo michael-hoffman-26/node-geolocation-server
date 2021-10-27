@@ -1,27 +1,17 @@
-import express from 'express'
+import express from 'express';
 
 import { formatCities } from '../../../../common/cityDistance';
 import { CitiesDistance } from '../../../../modles/cityDistance';
 import { getDistanceBetweenCities } from '../../../../external-services/geo-distance';
 import { getCitiesDistanceFromDB, insertCitiesToDB } from '../DL';
-import { validateRequest, getValidator } from '../validator';
-import { DBError } from '../../../../errors/dbError';
-import { printError } from '../../../../middleware/errorHandler';
+import { getValidator, validateRequest } from '../validator';
 
-const router = express.Router();
 
-function handleDbError(error: unknown) {
-    if (!(error instanceof DBError)) {
-        throw error;
-    }
-    else {
-        printError(error, true);
-    }
-}
+const getDIstance = express.Router();
 
-router.get('',
+getDIstance.get('',
     getValidator,
-    (req, res, next) => validateRequest(req, res, next),
+    validateRequest,
     async (req, res, next) => {
         try {
 
@@ -30,12 +20,9 @@ router.get('',
 
             const citiesDistance: CitiesDistance = formatCities(source, destination);
 
-            try {
-                citiesDistance.distance = await getCitiesDistanceFromDB(citiesDistance);
-                console.debug('distnace from DB: ', citiesDistance.distance);
-            } catch (error) {
-                handleDbError(error);
-            }
+            citiesDistance.distance = await getCitiesDistanceFromDB(citiesDistance);
+            console.debug('distnace from DB: ', citiesDistance.distance);
+
 
             if (citiesDistance.distance) {
                 return res.json({ distance: citiesDistance.distance });
@@ -46,17 +33,15 @@ router.get('',
 
             console.debug('distnace from api:  ', citiesDistance.distance);
 
-            try {
-                await insertCitiesToDB(citiesDistance);
-            } catch (error) {
-                handleDbError(error);
-            }
+            await insertCitiesToDB(citiesDistance);
 
             return res.json({ distance: citiesDistance.distance });
-
+            // next()
         } catch (error) {
-            next(error)
+            console.log('getDistance:  got error:  ', error)
+            next(error);
         }
     });
 
-export default router;
+export default getDIstance;
+

@@ -1,6 +1,8 @@
 import { query } from '../../../db';
 import { CitiesDistance } from "modles/cityDistance";
 import { getCitiesDistnceQuery, insertCitiesDistanceQuery, upsertCitiesDistanceQuery } from "./queries";
+import { DBError } from '../../../errors/dbError';
+import { printError } from '../../../middleware/errorHandler';
 
 export const getCitiesDistanceFromDB = (citiesDistance: CitiesDistance) => {
     return query(
@@ -8,6 +10,7 @@ export const getCitiesDistanceFromDB = (citiesDistance: CitiesDistance) => {
         [citiesDistance.source, citiesDistance.destination]
     )
         .then((result) => result?.rows[0]?.['distance'])
+        .catch(handleDbError);
 }
 
 export const insertCitiesToDB = (citiesDistance: CitiesDistance) => {
@@ -16,6 +19,7 @@ export const insertCitiesToDB = (citiesDistance: CitiesDistance) => {
         citiesDistance.destination,
         citiesDistance.distance
     ])
+        .catch(handleDbError)
 }
 
 export const upsertCitiesDistance = (citiesDistance: CitiesDistance) => {
@@ -23,5 +27,11 @@ export const upsertCitiesDistance = (citiesDistance: CitiesDistance) => {
         citiesDistance.source,
         citiesDistance.destination,
         citiesDistance.distance
-    ]).then((result) => result?.rows[0]?.['hits']);
+    ])
+        .then((result) => result?.rows[0]?.['hits'])
+        .catch(handleDbError);
+}
+
+function handleDbError(error: Error) {
+    printError(error, true);
 }

@@ -5,6 +5,7 @@ import { BaseError } from '../errors/baseError';
 const errorHandler = express.Router();
 
 errorHandler.use((error, req, res, next) => {
+    console.log('error handler:  ', error);
     if (error instanceof BaseError) {
         printError(error, true);
         return res.status(error.httpCode).json({ error: error.description })
