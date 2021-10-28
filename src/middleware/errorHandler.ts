@@ -1,10 +1,6 @@
-import express from 'express';
-
 import { BaseError } from '../errors/baseError';
 
-const errorHandler = express.Router();
-
-errorHandler.use((error, req, res, next) => {
+const errorHandler = (error, req, res, next) => {
     console.log('error handler:  ', error);
     if (error instanceof BaseError) {
         printError(error, true);
@@ -13,7 +9,7 @@ errorHandler.use((error, req, res, next) => {
         printError(error, false);
         return res.status(500).json({ error: 'Internal Server Error' })
     }
-})
+}
 
 export const printError = (error: Error, catchedError: boolean) => {
     console.error({ catchedError, error });

@@ -11,7 +11,6 @@ export const postDistance = async (req, res, next) => {
         const citiesDistance: CitiesDistance = formatCities(source, destination);
         citiesDistance.distance = distance;
 
-
         citiesDistance.hits = await upsertCitiesDistance(citiesDistance);
         delete citiesDistance.distance;
 
