@@ -11,6 +11,6 @@ export class BaseError extends Error {
         this.httpCode = httpCode;
         this.details = details;
 
-        // Error.captureStackTrace(this);
+        Error.captureStackTrace(this);
     }
 }

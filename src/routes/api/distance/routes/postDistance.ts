@@ -1,5 +1,5 @@
 import { formatCities } from '../../../../common/cityDistance';
-import { CitiesDistance } from '../../../../modles/cityDistance';
+import { CitiesDistance } from '../../../../models/cityDistance';
 import { upsertCitiesDistance } from '../DL';
 
 export const postDistance = async (req, res, next) => {

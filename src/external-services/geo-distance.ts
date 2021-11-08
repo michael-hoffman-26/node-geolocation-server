@@ -40,10 +40,10 @@ const getDistanceFromResponse = (data) => {
     if (requestStatus === 'OK') {
         switch (elementStatus) {
             case 'NOT_FOUND':
-                throw new paramError("source or distnation not valid");
+                throw new paramError("source or destination not valid");
 
             case 'ZERO_RESULTS':
-                throw new BaseError("No availble route", 200);
+                throw new BaseError("No available route", 200);
         }
     }
 

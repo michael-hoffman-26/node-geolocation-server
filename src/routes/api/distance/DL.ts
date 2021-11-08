@@ -1,5 +1,5 @@
 import { query } from '../../../db';
-import { CitiesDistance } from "modles/cityDistance";
+import { CitiesDistance } from "models/cityDistance";
 import { getCitiesDistnceQuery, insertCitiesDistanceQuery, upsertCitiesDistanceQuery } from "./queries";
 import { DBError } from '../../../errors/dbError';
 import { printError } from '../../../middleware/errorHandler';

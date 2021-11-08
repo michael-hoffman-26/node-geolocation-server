@@ -1,5 +1,5 @@
 import express from 'express'
-import { CitiesDistance } from 'modles/cityDistance';
+import { CitiesDistance } from 'models/cityDistance';
 
 import { getMaxHitCities } from './DL';
 
