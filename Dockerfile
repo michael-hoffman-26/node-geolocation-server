@@ -16,4 +16,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "npm start" ]
+ENTRYPOINT [ "bash","-c" ]
+CMD [ "npm start"]

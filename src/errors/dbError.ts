@@ -1,7 +1,8 @@
-export class DBError extends Error {
-    constructor(msg: string) {
-        console.log('GOT DB ERROR:  ', msg)
-        super('DB Error:  ' + msg);
+import { BaseError } from "./baseError";
+
+export class DBError extends BaseError {
+    constructor(details: string) {
+        super('Internal Server Error', 500, details);
 
         // Set the prototype explicitly.
         Object.setPrototypeOf(this, DBError.prototype);

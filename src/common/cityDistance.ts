@@ -1,4 +1,4 @@
-import { CitiesDistance } from "modles/cityDistance";
+import { CitiesDistance } from "models/cityDistance";
 
 export const formatCities = (source: string, destination: string): CitiesDistance => {
     const isSourceSmaller = source.localeCompare(destination) === -1;
