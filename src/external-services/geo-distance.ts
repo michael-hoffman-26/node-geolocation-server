@@ -43,7 +43,7 @@ const getDistanceFromResponse = (data) => {
                 throw new paramError("source or destination not valid");
 
             case 'ZERO_RESULTS':
-                throw new BaseError("No available route", 200);
+                throw new BaseError("No available route", 404);
         }
     }
 
